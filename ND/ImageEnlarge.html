@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Doris Training - Image Enlarge</title>
+    <script src="themes/default/js/lib/jquery-1.7.1.js"></script>
+    <script src="themes/default/js/image-enlarge.js"></script>
+    <style type="text/css">
+        .dd_content_containter{display:inline-block;border:1px solid #a9a9a9;padding:4px;}
+        .dd_content_containter > div{width:100%;height:100%;position:relative;cursor:move;}
+        .dd_content_containter .dd_focus_area{position:absolute;top:0;left:0;opacity:0.8;background:#cea317;}
+        .dd_content_containter img{display:block;position:relative;}
+        .dd_preview_container{display:inline-block;position:relative;vertical-align:top;border:1px solid #a9a9a9;padding:4px;}
+        .dd_preview_container > div{width:100%;height:100%;overflow:hidden;overflow:hidden;position:relative;}
+        .dd_preview_container img{position:relative;display:block;}
+    </style>
+</head>
+<body>
+    
+    <div class="image-enlarge">
+        <img src="media/music.jpg" />
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            $('.image-enlarge').imageEnlarge({
+                imgScale: 5
+            });
+        });
+    </script>
+
+</body>
+</html>

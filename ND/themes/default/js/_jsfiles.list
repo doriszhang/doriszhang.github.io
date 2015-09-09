@@ -1,0 +1,21 @@
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# These files are concatenated in this order into live/dev.debug.js and then minified into live/prod.min.js
+#	- dev.debug.js is for Developer Debugging 
+#	- prod.min.js is for Production 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+## Preface (You should edit project name in this file)
+intro.js
+
+#### Files in correct order that reside in /themes/default/js/lib
+#### PLEASE NOTE: jquery is not included here, it is sourced by default from the CDN.
+#### PLEASE NOTE: modernizr is not included here, it has to be referenced in the <head> as a seperate file.
+
+
+##  Optional Library includes
+lib/jquery-1.7.1.js
+lib/jquery.isotope.min.js
+
+#### Project files in correct order that reside in /themes/default/js (this come after lib's)
+
+technology.js

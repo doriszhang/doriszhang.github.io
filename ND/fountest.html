@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+    <title>test - Doris training</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0" name="viewport">
+    <meta content="no-transform" http-equiv="Cache-Control">
+    <!--<script src="themes/default/js/lib/jquery-1.7.1.js"></script>   -->
+</head>
+<body>
+
+    <!--<div id="parent">
+        <div id="child1"></div>
+        <div id="child2"></div>
+    </div>-->
+    <button id="btn_ajax" >Call Ajax</button>
+    <p id="msg_ajax"></p>
+    <div id="qs_container"></div>
+    <!--<p>Your score is: <meter value="91" min="0" max="100" low="40" high="90" optimum="100">A+</meter></p>
+     <p>
+        10 + 5 = <output name="sum" value="15">15</output>
+    </p>-->
+
+    <style type="text/css">
+        div{border:1px solid #000;}
+        #parent{width:500px;height:500px;}
+        #child1{width:200px;height:200px;background:#cfcfcf;}
+        #child2{width:200px;height:200px;background:#898989;}
+    </style>
+
+    <script type="text/javascript">
+        //window.onclick = function (e) {
+        //    console.log('window click');
+        //};
+
+        //document.getElementById('parent').onclick = function (e) {
+        //    console.log('parent click');
+        //};
+        //document.getElementById('child1').onclick = function (e) {
+        //    console.log('child1 click');
+        //};
+        //document.getElementById('child2').onclick = function (e) {
+        //    console.log('child2 click');
+        //};
+
+        //document.getElementById('parent').addEventListener('click', function (e) {
+        //    console.log('parent click');
+        //});
+        //document.getElementById('child1').addEventListener('click', function (e) {
+        //    //e.stopPropagation();
+        //    //e.stopImmediatePropagation();
+        //    console.log('child1 click');
+        //});
+        //document.getElementById('child1').addEventListener('click', function (e) {
+        //    console.log('child1 click 2');
+        //});
+        //document.getElementById('child2').addEventListener('click', function (e) {
+        //    console.log('child2 click');
+        //});
+
+        //var ele = document.getElementsByTagName('div');
+        //for (var i = 0; i < ele.length; i++) {
+        //    //ele[i].addEventListener('click', function (e) {
+        //    //    console.log('i am #' + i);
+        //    //});
+        //    (function (lockedIndex) {
+        //        ele[i].addEventListener('click', function (e) {
+        //            console.log('i am locked #' + lockedIndex);
+        //        });
+        //    }(i))
+        //}
+
+        document.getElementById('btn_ajax').onclick = function (e) {
+            var xmlHttp;
+            if (window.ActiveXObject) {
+                xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
+            }
+            else if (window.XMLHttpRequest) {
+                xmlHttp = new XMLHttpRequest();
+            }
+            if (xmlHttp) {
+                document.getElementById('msg_ajax').innerHTML = "loading...";
+                xmlHttp.open('get', '/training/data/test.js', true);
+                xmlHttp.onreadystatechange = function () {
+                    console.log('xmlHttp.readyState=' + xmlHttp.readyState);
+                    console.log('xmlHttp.status=' + xmlHttp.status);
+                    if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                        document.getElementById('msg_ajax').innerHTML = xmlHttp.responseText;
+                        console.log(xmlHttp);
+                    }
+                };
+                //xmlHttp.setRequestHeader('Content-Type', "application/x-www-form-urlencoded");
+                xmlHttp.send();
+            }
+            else {
+                document.getElementById('msg_ajax').innerHTML = "create xmlhttprequest fail...";
+            }
+        };
+
+        //function testfun(i) { console.log(i);}
+        //var testArray = new Array();
+        //for (var i = 0; i < 2; i++) {
+        //    //testArray[i] = testfun(i);
+        //    testArray[i] = (function (i) { console.log(i); }(i));
+        //}
+
+        //testArray[0]();
+        //testArray[1]();
+
+        //var testArray = [1];
+        //testArray.push([2, 3]);
+        //testArray.pop();
+        //console.log(testArray);
+
+
+        function doris(str) {
+            var innerval = str;
+            this.name = "d";
+            this.value = str;
+            this.fun = function () {
+                console.log("name=" + this.name + ",value=" + this.value + ",innerval=" + innerval);
+            }
+            this.test = function () {
+                innerval = "changed";
+            }
+        }
+        doris.prototype.update = function (val) {
+            this.value = val;
+            this.test();
+            this.fun();
+        }
+
+        var d1 = new doris("d1");
+        var d2 = new doris('d2');
+
+        (function (window, Number) {
+            Number.test = 9;
+            var a = Number = 1;
+            window.test = a;
+        }(window, Number))
+
+
+
+        function questionCreator(spec, my) {
+            var that = { };
+            my = my || { };
+            my.label = spec.label;
+            my.renderInput = function () {
+                throw 'not implemented';
+            };
+            that.render = function (target) {
+                var questionWrapper = document.createElement('div');
+                questionWrapper.className = 'question';
+                var questionLabel = document.createElement('div');
+                questionLabel.className = 'question-label';
+                var label = document.createTextNode(spec.label);
+                questionLabel.appendChild(label);
+                var answer = my.renderInput();
+                questionWrapper.appendChild(questionLabel);
+                questionWrapper.appendChild(answer);
+                return questionWrapper;
+            };
+            return that;
+        }
+        function choiceQuestionCreator(spec) {
+            var my = { },
+            that = questionCreator(spec, my);
+            my.renderInput = function () {
+                var input = document.createElement('select');
+                var len = spec.choices.length;
+                for (var i = 0; i < len; i++) {
+                    var option = document.createElement('option');
+                    option.text = spec.choices[i];
+                    option.value = spec.choices[i];
+                    input.appendChild(option);
+                }
+                return input;
+            };
+            return that;
+        }
+        function inputQuestionCreator(spec) {
+            var my = { },
+            that = questionCreator(spec, my);
+            my.renderInput = function () {
+                var input = document.createElement('input');
+                input.type = 'text';
+                return input;
+            };
+            return that;
+        }
+        var view = {
+            render: function (target, questions) {
+                for (var i = 0; i < questions.length; i++) {
+                    target.appendChild(questions[i].render());
+                }
+            }
+        };
+        var questions = [
+          choiceQuestionCreator({
+              label: 'Have you used tobacco products within the last 30 days?',
+              choices: [
+                'Yes',
+                'No'
+              ]
+          }),
+          inputQuestionCreator({
+              label: 'What medications are you currently using?'
+          })
+        ];
+        var questionRegion = document.getElementById('qs_container');
+        view.render(questionRegion, questions);
+
+
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Count Forgs - Backbone Doris Training</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="width=device-width,height=device-height,minimum-scale=1,maximum-scale=1,user-scalable=no" name="viewport"/>
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <link href="themes/default/css/count-forgs.css" rel="stylesheet" />
+    <script src="themes/default/js/lib/jquery-1.7.1.js"></script>
+    <script src="themes/default/js/lib/underscore.js"></script>
+    <script src="themes/default/js/lib/backbone.js"></script>
+    <script src="themes/default/js/lib/backbone-localstorage.js"></script>
+    <script src="themes/default/js/wechat.js"></script>
+    <script src="themes/default/js/count-forgs.js"></script>
+</head>
+<body>
+
+    <div id="container" class="container">
+        <!--<div id="title" class="title"></div>
+        <div id="itemlist" class="itemlist"></div>
+        <div id="controllers" class="controllers"></div>-->
+    </div>
+
+    <!--<div id="container" class="container">
+        <div id="title" class="title">
+            <span class="back" style="float:left;"><<</span>
+            <h1 style="display:inline;">数青蛙</h1>
+            <span class="edit" style="float:right;">>></span>
+        </div>
+        <div id="itemlist" class="itemlist">
+            <ul>
+                <li>
+                    <strong>1</strong>只青蛙<strong>1</strong>张嘴
+                </li>
+                <li>
+                    <strong>2</strong>只眼睛<strong>4</strong>条腿
+                </li>
+                <li>
+                    扑通<strong>1</strong>声跳下水
+                </li>
+            </ul>
+        </div>
+        <div id="controllers" class="controllers">
+            <button id="minus" style="width:20%;float:left;">-</button>
+            <span style="width:60%;">1</span>
+            <button id="plus" style="width:20%;float:right;">+</button>
+        </div>
+    </div>
+
+    <div id="container" class="container">
+        <div id="title" class="title">
+            <h1>编辑</h1>
+        </div>
+        <div id="itemlist" class="itemlist">
+            <ul>
+                <li>
+                    <label>标题：</label><input id="title" />
+                </li>
+                <li>
+                    <label>名字：</label><input id="name" />
+                </li>
+                <li>
+                    <label>嘴：</label><input id="mouth" />
+                </li>
+                <li>
+                    <label>眼睛：</label><input id="eye" />
+                </li>
+                <li>
+                    <label>腿：</label><input id="leg" />
+                </li>
+            </ul>
+        </div>
+        <div id="controllers" class="controllers">
+            <button id="save" style="width:50%">保存</button>
+            <button id="cancel" style="width:50%">取消</button>
+        </div>
+    </div>
+
+    <div id="container" class="container">
+        <div id="title" class="title">
+            <h1>数青蛙</h1>
+        </div>
+        <div id="itemlist" class="itemlist">
+            <ul>
+                <li>
+                    <span>数青蛙1</span>
+                    <div class="control">
+                        <span class="edit">edit</span>
+                        <span class="delete">delete</span>
+                    </div>
+                </li>
+                <li>
+                    <span>数青蛙1</span>
+                    <div class="control">
+                        <span class="edit">edit</span>
+                        <span class="delete">delete</span>
+                    </div>
+                </li>
+                <li>
+                    <span>数青蛙1</span>
+                    <div class="control">
+                        <span class="edit">edit</span>
+                        <span class="delete">delete</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="controllers" class="controllers">
+            <button id="add">添加</button>
+        </div>
+    </div>-->
+
+    <script id="listTitleTemplate" type="text/template">
+        <h1>数青蛙</h1>
+    </script>
+    <script id="listItemTemplate" type="text/template">
+        <span class="view" data="{{id}}">{{title}}</span>
+        <div class="control">
+             <span class="edit">edit</span>
+             <span class="delete">delete</span>
+        </div>
+    </script>
+    <script id="listControllersTemplate" type="text/template">
+        <button id="add">添加</button>
+    </script>
+
+    <script id="editTitleTemplate" type="text/template">
+        <h1>编辑</h1>
+    </script>
+    <script id="editContentTemplate" type="text/template">
+        <ul>
+            <li>
+                <label>标题：</label><input id="title" value="{{title}}"/>
+            </li>
+            <li>
+                <label>名字：</label><input id="name" value="{{name}}"/>
+            </li>
+            <li>
+                <label>嘴：</label><input id="mouth" value="{{mouth}}"/>
+            </li>
+            <li>
+                <label>眼睛：</label><input id="eye" value="{{eye}}"/>
+            </li>
+            <li>
+                <label>腿：</label><input id="leg" value="{{leg}}"/>
+            </li>
+        </ul>
+    </script>
+    <script id="editControllersTemplate" type="text/template">
+        <button id="save" style="width:50%">保存</button>
+        <button id="cancel" style="width:50%">取消</button>
+    </script>
+
+    <script id="showTitleTemplate" type="text/template">
+        <span class="back" style="float:left;cursor:pointer;"><<</span>
+        <h1 style="display:inline;">{{title}}</h1>
+        <span class="edit" style="float:right;cursor:pointer;">>></span>
+    </script>
+    <script id="showContentTemplate" type="text/template">
+        <ul>
+            <li>
+                <strong>{{num}}</strong>只{{name}} <strong>{{mouth*num}}</strong>张嘴
+            </li>
+            <li>
+                <strong>{{eye*num}}</strong>只眼睛 <strong>{{leg*num}}</strong>条腿
+            </li>
+            <li>
+                {{action}}<strong>{{num}}</strong>声跳下水
+            </li>
+        </ul>
+    </script>
+    <script id="showControllersTemplate" type="text/template">
+        <button id="minus" style="width:20%;float:left;">-</button>
+        <span class="num" style="width:60%;">1</span>
+        <input type="number" class="num" style="display:none;width:59%;text-align:center;"/>
+        <button id="plus" style="width:20%;float:right;">+</button>
+    </script>
+    
+    
+</body>
+</html>

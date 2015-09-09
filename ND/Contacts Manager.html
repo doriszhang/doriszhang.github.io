@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Contacts Manager - Doris training backbone</title>
+    <link href="Demo/BackboneJS/Contact Manager/css/screen.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div id="contacts">
+        <header>
+            <div id="filter"><label>Show me: </label></div>
+            <a id="showForm" href="#">Add new contact</a>
+            <form id="addContact" action="#">
+                <label for="photo">Photo: </label>
+                <input id="photo" type="file" />                
+                <label for="name">Name: </label>
+                <input id="name" type="text" />
+                <label for="type">Type: </label>
+                <input id="type" type="text" />
+                <label for="address">Address: </label>
+                <input id="address" type="text" />
+                <label for="tel">Tel: </label>
+                <input id="tel" type="text" />
+                <label for="email">Email: </label>
+                <input id="email" type="text" />
+                <button id="add">Add</button>
+            </form>
+        </header>        
+    </div>
+
+    <script id="contactTemplate" type="text/template">
+        <img src="{{photo}}" alt="{{name}}"/>
+        <h1>{{name}}<span>{{type}}</span></h1>
+        <div>{{address}}</div>
+        <dl>
+            <dt>Tel:</dt>
+            <dd>{{tel}}</dd>
+            <dt>Email:</dt>
+            <dd>{{email}}</dd>
+        </dl>
+        <button class="edit">Edit</button>
+        <button class="delete">Delete</button>
+    </script>
+
+    <script id="contactEditTemplate" type="text/template">
+        <form action="#">
+            <input class="photo" type="file" value="{{photo}}"/>
+            <input class="name" value="{{name}}" placeholder="name" />
+            <input id="type" type="hidden" value="{{type}}" placeholder="type" />
+            <input class="address" value="{{address}}" placeholder="address"/>
+            <input class="tel" value="{{tel}}" placeholder="tel" />
+            <input class="email" value="{{email}}" placeholder="email" />
+            <button class="cancel">Cancel</button>
+            <button class="save">Save</button>            
+        </form>
+    </script>
+
+    <script src="themes/default/js/lib/jquery-1.7.1.js"></script>
+    <script src="themes/default/js/lib/underscore.js"></script>
+    <script src="themes/default/js/lib/backbone.js"></script>
+    <script src="themes/default/js/contacts-manager.js"></script>
+</body>
+</html>

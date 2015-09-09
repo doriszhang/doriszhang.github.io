@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Match Match - Doris training</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="width=device-width,height=device-height,minimum-scale=1,maximum-scale=1,user-scalable=no" name="viewport"/>
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
+    <meta http-equiv="Cache-Control" content="no-cache" />    
+    <script src="themes/default/js/lib/jquery-1.7.1.js"></script>
+    <script src="themes/default/js/match-match.js"></script>
+</head>
+<body style="margin:5px;text-align:center;">
+    <div>
+        <canvas id="mainCanvas">Your browser do not support.</canvas>
+    </div>
+
+    <script src="themes/default/js/wechat.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            Doris.Wechat.init({
+                "tTitle": 'Game - Match Match - Share',
+                "tContent": 'Doris share training',
+                "timeLineLink": "http://ndwechat2.staging.nextdigital.com/doris/pj/MatchMatch.html"
+            });
+        });
+    </script>
+
+</body>
+</html>

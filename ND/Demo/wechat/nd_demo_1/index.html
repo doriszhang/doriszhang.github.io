@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<title>Next Digital - Campaign Demo</title>
+
+	<link href="fixed-positioning.css" rel="stylesheet" type="text/css" />
+	<link href="main.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div id="bg1" data-0="background-position:0px 0px;" data-end="background-position:-500px -10000px;"></div>
+	<div id="bg2" data-0="background-position:0px 0px;" data-end="background-position:-500px -8000px;"></div>
+	<div id="bg3" data-0="background-position:0px 0px;" data-end="background-position:-500px -6000px;"></div>
+
+	<div id="progress" data-0="width:0%;background:hsl(200, 100%, 50%);" data-end="width:100%;background:hsl(920, 100%, 50%);"></div>
+
+	<div id="intro" data-0="opacity:0.7;top:3%;transform:rotate(0deg);transform-origin:0 0;" data-500="opacity:0;top:-10%;transform:rotate(-90deg);">
+		<a href="http://www.nextdigital.cn"><img src="images/logo.png"/></a>
+		<p>Next Digital将以一个全新的品牌面貌与您见面！您看到的是我们的临时页面，我们正在全力建设一个展现当下和未来的全新网站。您将从中了解我们的最新动态，并与我们一起探索数字营销的未来。我们全新的网站将在2014年8月投入运营。</p>
+		<p class="arrows">▼&nbsp;▼&nbsp;▼</p>
+	</div>
+
+	<div id="transform" data-500="transform:scale(0) rotate(0deg);" data-1000="transform:scale(1) rotate(1440deg);opacity:1;" data-1600="" data-1700="transform:scale(5) rotate(3240deg);opacity:0;">
+		<h2>订阅通知</h2>
+		<p>当我们全新的网站最后完成的时候，请允许我们通知您。请您放心，Next Digital将对您的资料进行保密，您也不必担心有任何的垃圾邮件。我们期待与您分享未来的这一重要时刻。</p>
+	</div>
+
+	<div id="properties" data-1700="top:100%;" data-2200="top:0%;" data-3000="display:block;" data-3700="top:-100%;display:none;" style="padding: 80px;">
+		<h2>前瞻科技</h2>
+		<p>顶尖的科技和专家帮助您利用网络力量实现业务增长的需要。我们令人骄傲的强大科技背景和实力使我们将前瞻科技与行业洞察力相结合，来实现您的成功。</p>
+		<h2>市场营销</h2>
+		<p>数字营销的无限可能在于您如何接触，转化并留住您的客户。而我们，正是以业绩为导向的营销大师。</p>
+	</div>
+
+	<div id="easing_wrapper" data-0="display:none;" data-3900="display:block;" data-4900="background:rgba(0, 0, 0, 0);color[swing]:rgb(0,0,0);" data-5900="background:rgba(255,142,56,0.3);color:rgb(255,255,255);" data-10000="top:0%;" data-12000="top:-100%;">
+		<div id="easing" data-3900="left:100%" data-4600="left:25%;">
+			<h2>战略方案</h2>
+			<p>将业务发展战略向数字化的战略方案转型是获得成功的关键。
+			<p>我们以客户为导向，创造客户专属的<span data-3900="" data-4900="color[swing]:rgb(0,0,0);" data-5900="color:rgb(255,255,0);">数字战略方案</span> ，连接，吸引并留住目标受众。</p>
+		</div>
+
+		<div class="drop" data-6500="left:15%;bottom:100%;" data-9500="bottom:0%;">FORD</div>
+		<div class="drop" data-6500="left:25%;bottom[quadratic]:100%;" data-9500="bottom:0%;">ECCO</div>
+		<div class="drop" data-6500="left:35%;bottom[cubic]:100%;" data-9500="bottom:0%;">QANTAS</div>
+		<div class="drop" data-6500="left:45%;bottom[swing]:100%;" data-9500="bottom:0%;">BAYER</div>
+		<div class="drop" data-6500="left:55%;bottom[WTF]:100%;" data-9500="bottom:0%;">VANISH</div>
+		<div class="drop" data-6500="left:65%;bottom[inverted]:100%;" data-9500="bottom:0%;">ARRIUM</div>
+		<div class="drop" data-6500="left:75%;bottom[bounce]:100%;" data-9500="bottom:0%;">WEX</div>
+	</div>
+
+	<div id="download" data-10000="top[cubic]:100%;border-radius[cubic]:0em;background:rgba(0,50,100,0.3);border-width:0px;" data-12000="top:10%;border-radius:2em;background:rgba(84,217,255,0.3);border-width:10px;">
+		<h2>欢迎关注微信公众号</h2>
+		<p>nextdigital_sh</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p><strong>18年来，Next Digital不断创造数字营销的奇迹,为您带来。</strong>
+	</div>
+
+	<div id="scrollbar" data-0="top:0%;margin-top:2px;" data-end="top:100%;margin-top:-52px;"></div>
+
+	<script type="text/javascript" src="skrollr.min.js"></script>
+
+
+	<script type="text/javascript">
+	var s = skrollr.init({
+		edgeStrategy: 'set',
+		easing: {
+			WTF: Math.random,
+			inverted: function(p) {
+				return 1-p;
+			}
+		}
+	});
+	</script>
+</body>
+
+</html>

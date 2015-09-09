@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Stop Watch - Doris training</title>
+</head>
+<body>
+    <div style="position:relative;">
+        <canvas width="800" height="400" id="mainCanvas" style="width:100%;height:auto;"></canvas>    
+        <button id="start" style="width:30%;" >Start</button>
+        <button id="pause" style="width:30%;" >Pause</button>
+        <button id="stop" style="width:30%;" >Stop</button>
+    </div>
+    
+
+    <script type="text/javascript">
+        var canvas = document.getElementById('mainCanvas');
+        var time = 0;
+        var se = null;
+
+        var btn_Start = document.getElementById('start');
+        var btn_Pause = document.getElementById('pause');
+        var btn_Stop = document.getElementById('stop');
+
+        btn_Pause.disabled = true;
+        btn_Stop.disabled = true;
+
+        if (canvas != null) {
+            canvas.parentElement.style.top = window.innerHeight / 2 - canvas.parentElement.clientHeight/2 + "px";
+            var context = canvas.getContext('2d');
+            var interval = setInterval(function () {
+                updateTime(context);
+            }, 10);
+        }
+
+        function updateTime(context) {
+            context.clearRect(0, 0, 800, 400);
+            context.strokeStyle = "#000000";
+            context.strokeRect(0, 0, 800, 400);
+            context.fillStyle = "#000000";
+            context.textAlign = "center";
+            context.font = "60px Arial";
+            context.fillText(Math.round(time * 100) / 100, 400, 200, 800);
+        }
+             
+        
+        btn_Start.onclick = function () {
+            se = setInterval(function () {
+                time = Math.round(time * 100) / 100 + 0.01;
+                updateTime(context);
+            }, 10);
+            btn_Start.disabled = true;
+            btn_Pause.disabled = false;
+            btn_Stop.disabled = false;
+        };
+
+        btn_Pause.onclick = function () {
+            if (se) {
+                clearInterval(se);
+            }
+            updateTime(context);
+            btn_Start.disabled = false;
+            btn_Pause.disabled = true;
+            btn_Stop.disabled = false;
+        };
+
+        btn_Stop.onclick = function () {
+            if (se) {
+                clearInterval(se);
+            }
+            time = 0;
+            updateTime(context);
+            btn_Start.disabled = false;
+            btn_Pause.disabled = true;
+            btn_Stop.disabled = true;
+        };
+        
+
+    </script>
+
+</body>
+</html>

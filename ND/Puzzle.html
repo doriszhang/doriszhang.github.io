@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Doris Training - Puzzle</title>
+    <script src="themes/default/js/lib/jquery-1.7.1.js"></script>
+    <script src="themes/default/js/puzzle.js"></script>
+    <style type="text/css">
+        .dd_puzzle_container{position:relative;}
+        .dd_puzzle_container ul{list-style:none;margin:0;padding:0;}
+        .dd_puzzle_container ul li{position:absolute;overflow:hidden;cursor:move;box-sizing:border-box;}
+        .dd_puzzle_container ul li.active,.dd_puzzle_container ul li.hover{border:5px solid;z-index:2;}
+        .dd_puzzle_container ul li.hover{z-index:1;}
+        .dd_puzzle_container ul li img{width:100%;height:100%;}
+    </style>
+</head>
+<body>
+    <div class="puzzle-container">
+        <ul>
+            <li><img src="media/falcon.jpg" /></li>
+            <li><img src="media/fiesta.jpg" /></li>
+            <li><img src="media/focus.jpg" /></li>
+            <li><img src="media/kuga.jpg" /></li>
+            <li><img src="media/mondeo.jpg" /></li>
+            <li><img src="media/territory.jpg" /></li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            $('.puzzle-container').puzzlePlay({
+                row_num: 2,
+                col_num: 3,
+                item_w: 150,
+                item_h:110
+            });
+        });
+    </script>
+
+</body>
+</html>

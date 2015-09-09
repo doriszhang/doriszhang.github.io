@@ -1,0 +1,21 @@
+﻿.test-display.row {
+    border-color:#c6c6c6;
+    border-width:1px;
+    border-style:solid;
+    line-height:2em;
+    margin:10px auto;
+}
+
+.test-display div:nth-child(even) {
+    background: #E1E1E1;
+}
+.test-display div:nth-child(odd) {
+    background: #eee;
+}
+
+
+#toolbar, #fat-footer, #footer-links, .smobile .logo-wide, .breadcrumb{display:none !important;}
+.accordion-panel .tab-area{height:76px;}
+
+
+.expandedfeatures .heading-text h1{font-size:2.8rem;}

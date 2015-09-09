@@ -1,0 +1,592 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>test - Doris training</title>
+    <script src="themes/default/js/lib/jquery-1.7.1.js"></script>
+    <script src="themes/default/js/lib/jquery-ui.min.js"></script>
+    <link href="themes/default/css/jquery-ui.min.css" rel="stylesheet" />
+
+    <style type="text/css">
+        #tab1 .box{width:300px;height:300px;}
+        #tab1 .box div{float:left;border:5px solid #1c94c4;height:30%;width:30%;position:relative;}
+        #tab1 .box div:nth-child(3n+1) + div{margin-left:-5px;margin-right:-5px;}
+        #tab1 .box div:nth-child(n+4){margin-top:-5px;}
+        #tab1 .box div:hover{border-color:#eb8f00;z-index:1;}
+        #tab1 .head{font-size:10px;transition:font-size 1s;}
+        #tab1 .head:hover{font-size:20px;}
+    </style>
+</head>
+<body>
+
+    <h1>Tab</h1>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tab0">Tab 0</a></li>
+            <li><a href="#tab1">Tab 1</a></li>
+            <li><a href="#tab2">Tab 2</a></li>
+            <li><a href="/training">Training</a></li>
+        </ul>
+        <a id="destroy" href="#">Destroy</a>
+        <a id="disable" href="#">DisableNo1</a>
+        <a id="enable" href="#">EnableAll</a>
+        <div id="tab0">
+            <p title="tootip...">This is tab 0...</p>
+            <p>Accordion</p>
+            <div id="accordion">
+                <h2><a href="#">Header 0</a></h2>
+                <div>
+                    <p>This is accordion 0...</p>
+                    <p>This is accordion 0...</p>
+                    <p>This is accordion 0...</p>
+                </div>
+
+                <a href="#">Header 1</a>
+                <div>This is accordion 1...</div>
+
+                <div>Header 2</div>
+                <div>This is accordion 2...</div>
+            </div>
+            <p>Dialog</p>
+            <button id="btn_dialog">Dialog</button>
+            <div id="dialog" title="Dialog title">This is a dialog...</div>
+            <p>Slider</p>
+            <div id="slider"></div>
+        </div>
+        <div id="tab1">
+            <p>This is tab 1...</p>
+            <p class="head">Yohoo...</p>
+            <input id="file" type="file"/>
+            <img src="" id="img" style="display:none;"/>      <div id="newPreview"></div>      
+            <div class="box">
+                <div><span>1</span></div>
+                <div><span>2</span></div>
+                <div><span>3</span></div>
+                <div><span>4</span></div>
+                <div><span>5</span></div>
+                <div><span>6</span></div>
+                <div><span>7</span></div>
+                <div><span>8</span></div>
+                <div><span>9</span></div>
+            </div>
+            <script type="text/javascript">
+                $(function () {
+                    
+                    $('#tab1 #file').on('change', function () {
+                        var self = this;
+                        if (!self.value) { return; }
+                        console.log(self.value);
+                        var fileSource;
+                        var fileExtention = self.value.substring(self.value.lastIndexOf('.') + 1);
+                        if (self.files && self.files[0]) {  //firefox && chrome
+                            fileSource = window.URL.createObjectURL(self.files[0]);
+                        }
+                        else {  //stupid ie
+                            $('#img').attr('src', self.value).show();
+                            //self.select();
+                            //var imgSrc = document.selection.createRange().text;
+                            //var localImagId = document.getElementById('img');
+                            //localImagId.style.width = "300px";
+                            //localImagId.style.height = "120px";
+                            //try {
+                            //    localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                            //    localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+                            //} catch (e) {
+                            //    alert("您上传的图片格式不正确，请重新选择!");
+                            //    return false;
+                            //}
+                            //document.selection.empty();
+                            var newPreview = document.getElementById("newPreview");
+                            var imgDiv = document.createElement("div");
+                            document.body.appendChild(imgDiv);
+                            var image = new Image();
+                            image.src = self.value;
+                            imgDiv.style.width = image.width;
+                            imgDiv.style.height = image.height;
+                            imgDiv.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod = scale)";
+                            imgDiv.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = self.value;
+                            newPreview.appendChild(imgDiv);
+
+                        }
+                        if (fileSource) {
+                            $('#img').attr('src', fileSource).show();
+                        }
+                    });
+                })
+            </script>
+        </div>
+        <div id="tab2">
+            <p>This is tab2...</p>
+
+            <div id="dragImg">
+                <ul>
+                    <li><img src="media/falcon.jpg" /></li>
+                    <li><img src="media/fiesta.jpg" /></li>
+                    <li><img src="media/focus.jpg" /></li>
+                    <li><img src="media/kuga.jpg" /></li>
+                    <li><img src="media/mondeo.jpg" /></li>
+                    <li><img src="media/territory.jpg" /></li>
+                </ul>
+            </div>
+            <style type="text/css">
+                #dragImg{}
+                #dragImg ul{list-style:none;padding:0;margin:0;width:450px;height:220px;}
+                #dragImg ul li{width:150px;height:110px;float:left;}
+                #dragImg ul li img{width:140px;height:100px;cursor:move;border:none;padding:5px;}
+                #dragImg ul li:hover img{border:5px solid #000;padding:0;}
+                #dragImg ul li.active img{border:5px dashed red !important;padding:0;}
+            </style>
+            <script type="text/javascript">
+                (function ($) {
+                    //var DragImages = {
+                    //    init: function () {
+                    //        if ($('#dragImg > ul > li') && $('#dragImg > ul > li').length > 0) {
+
+                    //        }
+                    //    }
+                    //};
+                    var DragImages = (function () {
+                        function DragImages() {
+                            this.dragImgItems = new Array();
+                            this.init();
+                        }
+                        DragImages.prototype.init = function () {
+                            alert('p init');
+                        };
+                        DragImages.init = function () {
+                            alert('init');
+                        };
+                        return DragImages;
+                    });
+                    $(function () {
+                        var dragImages = new DragImages();
+                    });
+
+                })(jQuery)
+                //$(function () {
+                //    var dragImgItems = $.map($('#dragImg > ul > li'), function (item, index) {
+                //        var imgItem = {};
+                //        imgItem.item = item;
+                //        imgItem.index = index;
+                //        imgItem.id = Math.floor(Math.random(10) * 1e10);
+                //        return imgItem;
+                //    });
+                //    console.log(dragImgItems);
+                //    moveToPosition(dragImgItems);
+                //    function moveToPosition(imgItems) {
+
+                //    }
+                //});
+            </script>
+
+            <!--<div id="lightboxtest">
+                <a href="media/music.jpg" data-lightbox="image-1" data-title="Test for LightBox Lib">
+                    <img src="media/music2.jpg" />
+                </a>                
+            </div>
+            <script src="sourceCode/lightbox.js"></script>
+            <link href="sourceCode/lightbox.css" rel="stylesheet" />-->
+
+            <div id="cube">
+                <div class="container">
+                    <div class="front">1</div>
+                    <div class="back">2</div>
+                    <div class="top">3</div>
+                    <div class="bottom">4</div>
+                    <div class="left">5</div>
+                    <div class="right">6</div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                $(function () {
+                    $('#cube').on('click', function (e) {
+                        $('#cube .container').toggleClass('rotate');
+                    });
+                });
+            </script>
+            <style type="text/css">
+                @keyframes cube-rotate {
+                    from{transform:rotateY(0) rotateX(0);}
+                    to{transform:rotateY(-360deg) rotateX(360deg);}
+                }
+                @-webkit-keyframes cube-rotate {
+                    from{transform:rotateY(0) rotateX(0);}
+                    to{transform:rotateY(-360deg) rotateX(360deg);}
+                }
+                #cube{width:400px;height:400px;position:relative;border:1px solid #000;margin:10px 0;perspective:800px;perspective-origin:50% 100px;}
+                #cube .container{position:relative;width:200px;height:200px;margin:auto;top:100px;transform-style:preserve-3d;transform:rotateX(-25deg) rotateY(25deg) rotateZ(20deg);}
+                #cube .container.rotate{animation:cube-rotate 5s infinite linear;-webkit-animation:cube-rotate 5s infinite linear;}
+                #cube .container div{position:absolute;width:200px;height:200px;background:#e1e1e1;opacity:0.7;font-size:50px;color:#fff;text-align:center;line-height:200px;}
+                #cube .container div.front{transform:translate3d(0, 0,100px);background-color:red;}
+                #cube .container div.back{transform:translate3d(0, 0,-100px);background-color:blue;}
+                #cube .container div.top{transform:translate3d(0,100px,0) rotateX(90deg);background-color:yellow;}
+                #cube .container div.bottom{transform:translate3d(0,-100px,0) rotateX(90deg);background-color:orange;}
+                #cube .container div.left{transform:translate3d(-100px,0,0) rotateY(90deg);background-color:green;}
+                #cube .container div.right{transform:translate3d(100px,0,0) rotateY(90deg);background-color:purple;}
+            </style>
+
+            <div id="animations">                
+                <img class="transition" src="media/kuga.jpg" /><br />
+                <img class="animation" src="media/mondeo.jpg" /><br />
+                <img class="animation-rotate" src="media/mondeo.jpg" /><br />
+                <img class="animation-shake" src="media/mondeo.jpg" /><br />
+                <img class="animation-scale" src="media/focus.jpg" /><br />
+            </div>
+            <button id="btnToggle" onclick="$('#animations').toggleClass('visible');">Click to Toggle</button>
+            <style type="text/css">
+                #animations{position:relative;border:1px solid #000;overflow-y:auto;height:200px;}
+                #animations img{position:relative;}
+                #animations .transition{left:50px;top:50px;opacity:0;}
+                #animations.visible .transition{left:0;top:0;opacity:1;transition:all 0.5s ease-out;}
+                @keyframes animatekey {/*Standard syntax*/
+                    0%{top:10px;}
+                    30%{top:50px;}
+                    100%{top:0px;}
+                }
+                @-webkit-keyframes animatekey {/*Chrome,Safari,Opers*/
+                    0%{top:10px;}
+                    30%{top:50px;}
+                    100%{top:0px;}
+                }
+                #animations.visible .animation{animation:animatekey 0.5s ease-out;/*Standard syntax*/-webkit-animation:animatekey 0.5s ease-out;/*Chrome,Safari,Opers*/}
+                @keyframes animaterotate{
+                    from{transform:rotate(0deg);}
+                    to{transform:rotate(360deg);}
+                }
+                @-webkit-keyframes animaterotate{
+                    from{-webkit-transform:rotate(0deg);}
+                    to{-webkit-transform:rotate(360deg);}
+                }
+                #animations.visible .animation-rotate{animation:animaterotate 0.5s;-webkit-animation:animaterotate 0.5s;}
+                @keyframes animateshake{
+                    0%{transform:rotate(-10deg);}
+                    50%{transform:rotate(10deg);}
+                    100%{transform:rotate(-10deg);}
+                }
+                @-webkit-keyframes animateshake{
+                    0%{-webkit-transform:rotate(-10deg);}
+                    50%{-webkit-transform:rotate(10deg);}
+                    100%{-webkit-transform:rotate(-10deg);}
+                }
+                #animations.visible .animation-shake{animation:animateshake 1s infinite;-webkit-animation:animateshake 1s infinite;}
+                @keyframes animatescale{
+                    from,to{transform:scale(0.5);}
+                    30%,70%{transform:scale(1.2);}
+                    50%{transform:scale(1);}
+                }
+                @-webkit-keyframes animatescale{
+                    from,to{transform:scale(0.5);}
+                    30%,70%{transform:scale(1.2);}
+                    50%{transform:scale(1);}
+                }
+                #animations.visible .animation-scale{animation:animatescale 1s infinite;-webkit-animation:animatescale 1s infinite;}
+            </style>
+
+            <p>Star Rater</p>
+            <div id="starRate"></div>
+            <style type="text/css">
+                #starRate ul {
+                    height: 20px;
+                }
+
+                #starRate ul li {
+                    float: left;
+                    list-style: none;
+                }
+            </style>
+            <div id="drawPig">
+                <div class="head"></div>
+                <div class="ear left"></div>
+                <div class="ear right"></div>
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+                <div class="nose">
+                    <div class="nosehole left"></div>
+                    <div class="nosehole right"></div>
+                </div>
+            </div>
+            <style type="text/css">                
+
+                #drawPig {
+                    position: relative;
+                }
+
+                    #drawPig .head {
+                        width: 200px;
+                        height: 200px;
+                        background: #FA8CC8;
+                        border-radius: 100px;
+                    }
+
+                    #drawPig .ear {
+                        width: 0;
+                        height: 0;
+                        border-left: 20px solid transparent;
+                        border-right: 20px solid transparent;
+                        border-bottom: 28px solid #d20073;
+                        position: absolute;
+                        top: 10px;
+                    }
+
+                        #drawPig .ear.left {
+                            left: 18px;
+                        }
+
+                        #drawPig .ear.right {
+                            left: 145px;
+                        }
+
+                    #drawPig .nose {
+                        width: 120px;
+                        height: 80px;
+                        background: #FA4EAC;
+                        border-radius: 60px/40px;
+                        position: absolute;
+                        top: 100px;
+                        left: 40px;
+                    }
+
+                    #drawPig .nosehole {
+                        width: 20px;
+                        height: 40px;
+                        background: #E01B87;
+                        position: absolute;
+                        border-radius: 10px/20px;
+                        top: 20px;
+                    }
+
+                        #drawPig .nosehole.left {
+                            left: 20px;
+                        }
+
+                        #drawPig .nosehole.right {
+                            right: 20px;
+                        }
+
+                    #drawPig .eye {
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 10px;
+                        background: #000;
+                        position: absolute;
+                        top: 75px;
+                    }
+
+                        #drawPig .eye.left {
+                            left: 60px;
+                        }
+
+                        #drawPig .eye.right {
+                            left: 120px;
+                        }
+            </style>
+        </div>
+    </div>
+    <script type="text/javascript">
+        //jquery ui
+        $(function () {
+            //jquery ui - tooltip
+            $(document).tooltip();
+
+
+            //jquery ui - tabs
+            $('#tabs').tabs({
+                active: 2,
+                collapsible: true,
+                disabled: [0, 3],
+                //event:"mouseover"   //default: "click"
+                hide: { effect: "slideUp", duration: 300 },
+                show: { effect: "slideDown", duration: 300 }
+            });
+            console.log("active tab: " + $('#tabs').tabs('option', 'active'));
+            $('#tabs #destroy').click(function (e) {
+                e.preventDefault();
+                $('#tabs').tabs('destroy');
+            });
+            $('#tabs #disable').click(function (e) {
+                e.preventDefault();
+                //$('#tabs').tabs('disable', 1);
+                $('#tabs').tabs('disable', '#tab1');
+                //$('#tabs').tabs('option', 'disabled', [1, 2]);  //disable no1 & no2, enable the others
+            });
+            $('#tabs #enable').click(function (e) {
+                e.preventDefault();
+                $('#tabs').tabs('enable');
+                //$('#tabs').tabs('option', 'disabled', []);
+            });
+
+
+            //jquery ui - accordion
+            $('#accordion').accordion({
+                active: 2,
+                animate: 200,
+                collapsible: true,
+                //disabled: true
+                //header: 'h2'  //Default: "> li > :first-child,> :not(li):even"
+                //icons: { 'header': 'ui-icon-plus', 'activeHeader': 'ui-icon-minus' }  //Default: { "header": "ui-icon-triangle-1-e", "activeHeader": "ui-icon-triangle-1-s" }
+                heightStyle: 'content'
+            });
+
+
+            //jquery ui - button
+            $('#btn_dialog').button({
+                label: 'dialog btn label'
+                //text: false,
+                //icons: {primary:"ui-icon-gear",secondary:"ui-icon-trangle-1-s"}
+            });
+            console.log($('#btn_dialog').button('instance'));
+
+
+            //jquery ui - dialog
+            $('#dialog').dialog({
+                dialogClass: "customerClassName",
+                title: 'option - dialog title',
+                height: 500,  //default: 'auto'
+                width: 500,   //default: 'auto'
+                //position: {my:'left top', at:'left bottom', of:'button'},  //Default: { my: "center", at: "center", of: window }
+                buttons: [
+                    {
+                        text: "close",
+                        icons: {
+                            primary: "ui-icon-heart"
+                            //secondary: "ui-icon-trangle-1-s"
+                        },
+                        click: function () {
+                            console.log('dialog - click close');
+                            $(this).dialog('close');
+                        }
+                        //showText:false
+                    },
+                    {
+                        text: "destroy",
+                        click: function () {
+                            console.log('dialog - click destroy');
+                            $(this).dialog('destroy');
+                        }
+                    }
+                ],
+                closeText: "closetext - hide",
+                draggable: false, // default: true
+                resizable: false, // default: true
+                //appendTo:'#tab1',
+                autoOpen: false,
+                closeOnEscape: false,  //default: true
+                hide: { effect: 'slideUp', duration: 500 },  //default: null
+                show: { effect: 'slideDown', duration: 500 }, //default: null
+                modal: true,
+                close: function (event, ui) {  //$( "#dialog" ).on( "dialogclose", function( event, ui ) {} );
+                    console.log('dialog closed');
+                }
+            });
+            $('#btn_dialog').click(function () {
+                $('#dialog').dialog('open');
+            });
+
+
+            //jquery ui - slider
+            $('#slider').slider({
+                animate: 'fast',
+                max: 50,  //default: 100
+                min: 10,  //default: 0
+                step: 5,  //default: 1
+                value: 20,  //range: 'range', values:[20,35]
+                //orientation: 'vertical'  //default: horizontal
+                range: 'min', //default: false
+                change: function (event, ui) {
+                    console.log('slider change');
+                },
+                slide: function (event, ui) {
+                    console.log('slider slide: ' + ui.value);
+                }
+            });
+
+        })
+    </script>
+
+    <script type="text/javascript">
+        //star rate
+        (function ($) {
+
+            $.fn.StarRater = function (options) {
+                var defaults = {
+                    imgOn: 'themes/default/img/star-on.png',
+                    imgOff: 'themes/default/img/star-off.png',
+                    imgTitle: [],
+                    count: 5,
+                    score: 3
+                };
+                var options = $.extend(defaults, options);
+
+                var appendStar = function (element) {
+                    if (options.count > 0 && options.imgOn.length && options.imgOff.length) {
+                        renderContent(element);
+                        registerEvents(element);
+                    }
+                };
+
+                var renderContent = function (element) {
+                    element.empty();
+                    var list = $('<ul/>');
+                    for (var i = 1; i <= options.count; i++) {
+                        var block = $('<li/>');
+                        var image = $('<img/>', {
+                            'src': (options.score >= i) ? options.imgOn : options.imgOff,
+                            'alt': i,
+                            'data-score': i,
+                            'title': ($.isArray(options.imgTitle) && options.imgTitle[i - 1]) ? options.imgTitle[i - 1] : i
+                        });
+                        block.append(image);
+                        list.append(block);
+                    }
+                    element.append(list);
+                };
+
+                var updateContent = function (element, curscore) {
+                    var score = curscore || options.score;
+                    $(element).find('img').each(function (index, item) {
+                        var itemscore = $(item).data('score');
+                        if (itemscore > score) {
+                            item.src = options.imgOff;
+                        }
+                        else {
+                            item.src = options.imgOn;
+                        }
+                    });
+                }
+
+                var registerEvents = function (element) {
+                    $(element).on('click', 'img', function (e) {
+                        e.preventDefault();
+                        var curScore = parseInt($(this).data('score'));
+                        if (curScore > 0) {
+                            options.score = curScore;
+                            updateContent(element);
+                        }
+                    });
+                    $(element).on('mouseenter', 'img', function (e) {
+                        var curScore = parseInt($(this).data('score'));
+                        if (curScore > 0) {
+                            updateContent(element, curScore);
+                        }
+                    });
+                    $(element).on('mouseleave', 'img', function (e) {
+                        updateContent(element);
+                    });
+                };
+
+                appendStar($(this));
+
+            }
+
+
+
+
+            $(function () {
+                $('#starRate').StarRater();
+            });
+
+        }(jQuery))
+    </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,4 @@
+E:\Ford Projects\Training\src\DorisTraining\bin\DorisTraining.dll
+E:\Ford Projects\Training\src\DorisTraining\bin\DorisTraining.pdb
+E:\Ford Projects\Training\src\DorisTraining\obj\Debug\DorisTraining.dll
+E:\Ford Projects\Training\src\DorisTraining\obj\Debug\DorisTraining.pdb

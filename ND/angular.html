@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Doris training - angular</title>
+    <script src="themes/default/js/lib/jquery-1.7.1.js"></script>
+    <script src="themes/default/js/lib/angular.min.js"></script>
+    <script src="themes/default/js/angular.js"></script>
+</head>
+<body>
+  
+    <div id="content" ng-app="MyTutorialApp" ng-controller="MainController">
+
+
+        {{understand}}
+
+        <br /><br /><hr /><br />
+
+        <input type="text" ng-model="inputValue" />{{inputValue}}
+
+        <br /><br /><hr /><br />
+
+        <select ng-model="selectedPeople" ng-options="obj.name for obj in people"></select>
+        <select ng-model="selectedGenre">
+            <option ng-repeat="label in people[selectedPeople.id].music">{{label}}</option>
+        </select>
+
+        <br /><br /><hr /><br />
+
+        filter all fields:<input type="text" ng-model="searchText" />  <!--Search name field - Option 1: ng-model="searchText.name"-->
+        <ul>
+            <li ng-repeat="person in people | filter:searchText" ng-show="person.live==true">#{{person.id}} {{person.name}}</li>
+            <!--Search name field - Option 2: ng-repeat="person in people | filter: {name: searchText}"-->
+        </ul>
+        <ul>
+            <li ng-repeat="person in people | filter:searchText" ng-hide="person.live==false">#{{person.id}} {{person.name}}</li>
+        </ul>
+        <input type="text" ng-model="newPerson" />
+        <button ng-click="addNew()">Add</button>
+
+        <!-- ng-include -->
+        <div ng-include="'overlay.html'"></div>
+        <div ng-include="includeTemplateURL"></div>
+
+    </div>
+    
+</body>
+</html>
