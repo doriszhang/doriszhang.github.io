@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Count Forgs - Ionic Angular Training</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="width=device-width,height=device-height,minimum-scale=1,maximum-scale=1,user-scalable=no" name="viewport"/>
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
+    <meta http-equiv="Cache-Control" content="no-cache" />  
+    <link rel="stylesheet" href="themes/css/lib/ionic.min.css" />
+    <script src="themes/js/lib/jquery-1.11.3.min.js"></script>
+    <script src="themes/js/lib/ionic.bundle.min.js"></script>
+    <script src="themes/js/count-forgs-ionic-angular.js"></script>
+    <style>
+        ion-content ion-list ion-item p > span {color:blue;font-size: 20px;padding: 5px;}
+    </style>
+</head>
+<body id="container">
+
+    <ion-nav-bar class="bar-positive">
+        <ion-nav-back-button class="button-clear">
+            <i class="icon ion-ios-arrow-back"></i>返回
+        </ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-nav-view></ion-nav-view>
+
+
+    <script id="list.html" type="text/ng-template">
+        <ion-view view-title="{{pageName}}">
+            <ion-content>
+                <div class="padding" ng-show="!lists || lists.length==0">
+                    <button class="button button-block button-positive button-outline" 
+                        ng-click="goToAddPage()">新增</button>
+                </div>
+                <ion-list show-delete="isShowDelete" show-reorder="isShowReorder" >
+                    <ion-item collection-repeat="item in lists" 
+                        ng-click="goToDetailPage(item.id)"
+                        class="item-icon-right item-thumbnail-left">
+                        <img ng-src="{{item.img}}"/>
+                        <p style="position:relative;top:50%;transform:translate(0,-50%)">{{item.title}}</p>
+                        <i class="icon ion-ios-arrow-right"></i>
+                        <ion-delete-button class="ion-minus-circled" ng-click="delete(item)"></ion-delete-button>
+                        <ion-reorder-button class="ion-navicon" on-reorder="move(item,$fromIndex,$toIndex)"></ion-reorder-button>
+                        <ion-option-button class="button-positive" ng-click="delete(item)">删除</ion-option-button>
+                    </ion-item>
+                </ion-list>
+            </ion-content>
+            <ion-footer-bar class="bar-positive">
+                <div class="button-bar">
+                    <a class="button button-clear icon ion-minus-circled" ng-click="showDelete()">
+                        删除
+                    </a>
+                    <a class="button button-clear icon ion-android-boat" ng-click="goToAddPage()">
+                        新增
+                    </a>
+                    <a class="button button-clear icon ion-navicon-round" ng-click="showReorder()">
+                        排序
+                    </a>
+                </div>
+            </ion-footer-bar>
+        </ion-view>
+    </script>
+
+    <script id="detail.html" type="text/ng-template">
+        <ion-view view-title="{{pageName}}">
+            <ion-nav-buttons side="right">
+                <button class="button" ng-click="goToEditPage()">修改</button>
+            </ion-nav-buttons>
+            <ion-content>
+                <ion-list type="list-inset">
+                    <ion-item class="item-thumbnail-left">
+                        <img ng-src="{{item.img}}"/>
+                        <h2>{{item.title}}</h2>
+                    </ion-item>
+                    <ion-item class="item-body" style="border-top:none;padding:0 0 0 10%;">
+                        <p><span>{{count}}</span>只{{item.name}}<span>{{count * item.mouth}}</span>张嘴</p>
+                        <p><span>{{count * item.eye}}</span>只眼睛<span>{{count * item.leg}}</span>条腿</p>
+                        <p ng-if="item.isJump">{{getJumpStr(count,'扑通')}}<span>{{count}}</span>声跳下水</p>
+                    </ion-item>
+
+                </ion-list>
+            </ion-content>
+            <ion-footer-bar class="bar-positive">
+                <a class="button button-clear icon ion-ios-minus-outline" ng-click="updateCount(true)"></a>
+                <input type="number" style="margin:0 5%;text-align:center;width:100%;" ng-model="count"/>
+                <a class="button button-clear icon ion-ios-plus-outline" ng-click="updateCount(false)"></a>
+            </ion-footer-bar>
+        </ion-view>
+    </script>
+
+    <script id="editOrNew.html" type="text/ng-template">
+        <ion-view view-title="{{isEdit?'修改':'新增'}}">
+            <ion-nav-buttons side="right">
+                <button class="button" ng-click="save()">保存</button>
+            </ion-nav-buttons>
+            <ion-nav-buttons side="left">
+                <button class="button button-clear" ng-click="toToHomePage()"><i class="icon ion-ios-home-outline"></i></button>
+            </ion-nav-buttons>
+            <ion-content>
+                <ion-list>
+                    <ion-item class="item-input item-floating-label">
+                        <span class="input-label">标题</span>
+                        <input type="text" placeholder="标题" ng-model="item.title"/>
+                    </ion-item>
+                    <ion-item class="item-input">
+                        <span class="input-label">名称</span>
+                        <input type="text" placeholder="名称" ng-model="item.name" ng-change="onNameChange()"/>
+                    </ion-item>
+                    <ion-item class="item-input">
+                        <div class="col" style="display:flex">
+                            <span class="input-label">嘴</span>
+                            <input type="number" placeholder="嘴" ng-model="item.mouth"/>
+                        </div>
+                        <div class="col" style="display:flex">
+                            <span class="input-label">眼睛</span>
+                            <input type="number" placeholder="眼睛" ng-model="item.eye"/>
+                        </div>
+                        <div class="col" style="display:flex">
+                            <span class="input-label">腿</span>
+                            <input type="number" placeholder="腿" ng-model="item.leg"/>
+                        </div>
+                    </ion-item>
+                    <ion-item class="item-toggle">
+                        落水
+                        <label class="toggle toggle-assertive">
+                            <input type="checkbox" ng-model="item.isJump" ng-init="isJump=true"/>
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                    </ion-item>
+                </ion-list>
+            </ion-content>
+        </ion-view>
+    </script>
+
+</body>
+</html>
