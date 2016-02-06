@@ -6,8 +6,8 @@ Doris.Wechat = {
     init: function (options) {
 
         window.shareData = {
-            "imgUrl": "http://ndwechat2.staging.nextdigital.com/doris/pj/icon.jpg",
-            "timeLineLink": "http://doriszhang.github.io",
+            "imgUrl": "http://doriszhang.github.io/logo.jpg",
+            "timeLineLink": "http://doriszhang.github.io/PA/index.html",
             "tTitle": "Game - Doris",
             "tContent": "Doris training"
         };
