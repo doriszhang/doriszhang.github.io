@@ -396,11 +396,11 @@
             if(score>=5){
                 var caidan=new Image();
                 caidan.src='themes/img/caidan.png';
-                context.drawImage(caidan, (screenW / 2 - 80), screenH * 0.5 + 80, 160, 200);
+                context.drawImage(caidan, (screenW / 2 - 80), screenH * 0.5 + 80, 160, 180);
             }else if(score<=-5){
                 var caidan=new Image();
-                caidan.src='themes/img/caidan.png';
-                context.drawImage(caidan, (screenW / 2 - 80), screenH * 0.5 + 80, 160, 200);
+                caidan.src='themes/img/dan.png';
+                context.drawImage(caidan, (screenW / 2 - 80), screenH * 0.5 + 80, 160, 180);
             }
         };
 
