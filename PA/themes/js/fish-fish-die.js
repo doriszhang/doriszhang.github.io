@@ -1,7 +1,7 @@
 ﻿(function ($) {
 
     var screenW=560, screenH=800;
-    var gameStart = 2; //  0 -> ready, 1 -> start, 2 -> end
+    var gameStart = 0; //  0 -> ready, 1 -> start, 2 -> end
     var score = 0;
 
     var Hook=function(){
