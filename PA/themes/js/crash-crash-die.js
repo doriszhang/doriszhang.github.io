@@ -58,6 +58,20 @@
                 }else{
                     this.preMoveX = x;
                 }
+            }else{
+                if(x>this.position.x){
+                    this.position.x += 10;
+                }else{
+                    this.position.x -= 10;
+                }
+                if(this.position.x<0){
+                    this.position.x=0;
+                    // this.preMoveX = 0;
+                }else if(this.position.x+this.manWidth>screenW){
+                    this.position.x=screenW-this.manWidth;
+                    // this.preMoveX = screenW;
+                }
+                this.checkMove();
             }
         }
 
