@@ -18,7 +18,7 @@
         this.movingRight = true;
         this.maxSpeedY = 25;
         this.speedY = 0;
-        this.decrementY = 1.8;
+        this.decrementY = 1.3;
         this.isCrashed=false;
         this.dead=false;
 
