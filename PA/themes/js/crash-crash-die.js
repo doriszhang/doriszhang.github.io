@@ -20,6 +20,7 @@
         this.speedY = 0;
         this.decrementY = 1.8;
         this.isCrashed=false;
+        this.dead=false;
 
         this.init = function(){
             this.image.src = this.imageSrc1;
@@ -28,9 +29,13 @@
             this.manHeight = 150;
             this.manWidth = 60;
             this.isCrashed=false;
+            this.dead=false;
         }
 
         this.checkMove = function(x, y){
+            if(this.isMoving){
+                return;
+            }
             if(this.position.x<x && (this.position.x+this.manWidth)>x && this.position.y<y && (this.position.y+this.manHeight)>y){
                 this.isMoving = true;
             }else{
@@ -57,10 +62,13 @@
         }
 
         this.stopMove = function(){
-            this.isMoving=false;
-            this.isJumping=true;
-            this.speedY=this.maxSpeedY;
-            this.preMoveX=0;
+            if(!this.isJumping){
+                this.isMoving=false;
+                this.isJumping=true;
+                this.speedY=this.maxSpeedY;
+                this.preMoveX=0;
+            }
+            
         }
 
         this.logic = function(){
@@ -84,6 +92,9 @@
                 this.manHeight = Math.max(5, this.manHeight)
                 this.manWidth = Math.min(screenW/3, this.manWidth)
                 this.position.y = screenH - this.manHeight;
+            }
+            if(this.manHeight==5 && this.manWidth==screenW/3){
+                this.dead=true;
             }
         }
 
@@ -258,9 +269,11 @@
                     var y = clientY * screenH / canvas.height();
                     man.checkMove(x, y);
                 }else if(gameStatus==0){
-                    init();
-                    gameStatus=1;
-                    score=0;
+                    setTimeout(function(){
+                        init();
+                        gameStatus=1;
+                        score=0;
+                    },500)
                 }else{
                     gameStatus=0;
                 }
@@ -301,7 +314,7 @@
                     man.isCrashed=true;
                 }
             }
-            if(ball.isCrashed){
+            if(ball.isCrashed || man.dead){
                 gameStatus=2;
             }
         }
@@ -338,6 +351,12 @@
             context.font = "30px Arial";
             context.fillText("Score: " + score, screenW / 2, screenH * 0.5, screenW);
             context.fillText("Best score: " + getBestScore(), screenW / 2, screenH * 0.5 + 30, screenW);
+
+            if(score>=5){
+                var caidan=new Image();
+                caidan.src='themes/img/caidan.png';
+                context.drawImage(caidan, (screenW / 2 - 80), screenH * 0.5 + 80, 160, 180);
+            }
         }
 
         var getBestScore = function () {
